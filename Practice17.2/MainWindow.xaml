@@ -1,0 +1,87 @@
+﻿<Window x:Class="Practice17_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practice17_2"
+        mc:Ignorable="d"
+        Title="Practice17" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Grid.Column" Value="1" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="MinWidth" Value="100" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgUsers"
+                  ItemsSource="{Binding Users}"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  KeyDown="dgUsers_KeyDown"
+                  SelectionChanged="dgUsers_SelectionChanged"
+                  SelectionMode="Single">
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="{Binding EditCommandUser}"
+                              CommandParameter="{Binding ElementName=dgUsers, Path=SelectedItem}" />
+            </DataGrid.InputBindings>
+        </DataGrid>
+        <DataGrid x:Name="dgGoods"
+                  ItemsSource="{Binding Goods}"
+                  Grid.Row="1"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  SelectionChanged="dgGoods_SelectionChanged"
+                  KeyDown="dgGoods_KeyDown"
+                  SelectionMode="Single">
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="{Binding EditCommandGood}"
+                              CommandParameter="{Binding ElementName=dgGoods, Path=SelectedItem}" />
+            </DataGrid.InputBindings>
+        </DataGrid>
+
+        <StackPanel>
+            <Label Content="Клиенты" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center"/>
+            <Button Content="Добавить" Command="{Binding AddCommandUser}" />
+            <Button x:Name="btnEditUser"
+                    Content="Редактировать"
+                    Command="{Binding EditCommandUser}"
+                    CommandParameter="{Binding ElementName=dgUsers, Path=SelectedItem}" IsEnabled="False"
+                    />
+            <Button x:Name="btnDeleteUser"
+                    Content="Удалить"
+                    Command="{Binding DeleteCommandUser}" 
+                    CommandParameter="{Binding ElementName=dgUsers, Path=SelectedItem}" IsEnabled="False" />
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <Label Content="Товары" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center"/>
+            <Button Content="Добавить" Command="{Binding AddCommandGood}" />
+            <Button x:Name="btnEditGood"
+                    Content="Редактировать"
+                    Command="{Binding EditCommandGood}"
+                    CommandParameter="{Binding ElementName=dgGoods, Path=SelectedItem}" IsEnabled="False" />
+            <Button x:Name="btnDeleteGood"
+                    Content="Удалить"
+                    Command="{Binding DeleteCommandGood}" 
+                    CommandParameter="{Binding ElementName=dgGoods, Path=SelectedItem}" IsEnabled="False" />
+        </StackPanel>
+
+
+    </Grid>
+
+</Window>

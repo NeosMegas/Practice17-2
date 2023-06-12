@@ -1,0 +1,57 @@
+﻿<Window x:Class="Practice17_2.UserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practice17_2"
+        mc:Ignorable="d"
+        Title="Клиенты" Height="300" Width="600"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Grid.Column" Value="1" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="MinWidth" Value="100" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Id" />
+        <TextBlock Text="Фамилия" Grid.Row="1" />
+        <TextBlock Text="Имя" Grid.Row="2" />
+        <TextBlock Text="Отчество" Grid.Row="3" />
+        <TextBlock Text="Номер телефона" Grid.Row="4" />
+        <TextBlock Text="e-mail" Grid.Row="5" />
+
+        <TextBox Text="{Binding Id}" IsEnabled="False" />
+        <TextBox x:Name="tbLastName" Text="{Binding lastName}" Grid.Row="1" />
+        <TextBox Text="{Binding firstName}" Grid.Row="2" />
+        <TextBox Text="{Binding middleName}" Grid.Row="3" />
+        <TextBox Text="{Binding phoneNumber}" Grid.Row="4" />
+        <TextBox Text="{Binding email}" Grid.Row="5" />
+
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
+            <Button IsDefault="True" Click="Accept_Click" >OK</Button>
+            <Button IsCancel="True" >Отмена</Button>
+        </StackPanel>
+    </Grid>
+</Window>
