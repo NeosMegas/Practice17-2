@@ -17,6 +17,7 @@ namespace Practice17_2
         Practice16Entities context = new Practice16Entities();
         public BindingList<Users> Users { get; set; }
         public BindingList<Goods> Goods { get; set; }
+        public BindingList<Goods> AllGoods { get; set; }
         RelayCommand addCommandUser;
         RelayCommand editCommandUser;
         RelayCommand deleteCommandUser;
@@ -29,8 +30,10 @@ namespace Practice17_2
             {
                 selectedUserIndex = value;
                 if (selectedUserIndex >= 0 && selectedUserIndex < Users.Count)
-                    { } // если закомментировать эту строку и раскомментировать следующую, почему-то происходит ошибка NullReferenceException при добавлении новой записи Users
-                    //Goods = new BindingList<Goods>((from g in context.Goods.Local where g.email == Users[selectedUserIndex].email select g).ToList());
+                {
+                    //Goods = new BindingList<Goods>(AllGoods.Where(g => g.email == Users[selectedUserIndex].email).ToList());
+                    Goods = new BindingList<Goods>((from g in AllGoods where g.email == Users[selectedUserIndex].email select g).ToList());
+                }
                 else if (selectedUserIndex == -1)
                     Goods = context.Goods.Local.ToBindingList();
                 else
@@ -47,7 +50,7 @@ namespace Practice17_2
             context.Users.Load();
             Users = context.Users.Local.ToBindingList();
             context.Goods.Load();
-            Goods = context.Goods.Local.ToBindingList();
+            AllGoods = Goods = context.Goods.Local.ToBindingList();
         }
 
         public RelayCommand AddCommandUser
